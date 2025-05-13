@@ -1,0 +1,116 @@
+++++++++++++ El laboratorio
+Ahora vamos a desarrollar el laboratorio para afianzar el conocimiento de la clase:
+El laboratorio será la Aplicación de los conceptos de los sistemas de los datos, las instrucciones de SQL  en las ya creadas, también crearas otras bases de datos.
+
+Tiene una duración: 2 horas.
+
+El Objetivo del Laboratorio es: comprender y aplicar los sistemas de gestores de las bases de datos, realizar sentencias o instrucciones de SQL en la base de datos en MySQL.
+
+Materiales que se utilizaran son: el computador e internet, tener instalado el XAMMP para las consultas en una base de datos.
+
+La Estructura del Laboratorio: será en 2 partes:
+
+El primer ejercicio de práctica será la creación de una base de datos “empresa” con las respectivas tablas (3), deberás ingresar los registros, realizar el comando de consulta en la tabla de empleados y demás comandos solicitados especificando los querys utilizados.
+En el segundo ejercicio de práctica deberás realizar con la base de datos ya creada Biblioteca, deberás realizar comandos de modificación, actualización y eliminación de registros con la información dada.
+
+Vamos a desarrollarlo…..
+
+
+Ejercicio de práctica 1.
+Debes crear una base de datos con el nombre empresa, luego crear 2 tablas (empleados, cargo), luego ingresar 3 registros, realizar la consulta de todos los datos de los empleados, debes escribir las sentencias del proceso que realizo, dar respuesta a las consultas:
+Base de datos: empresa
+
+Tablas y los campos:
+empleados: id empl, nombre, cargo, salario.
+cargo: id cargo, nombre cargo, descripción, salario.
+ 
+Los registros pueden ser de libre elección, sino a continuación encontraras datos útiles:
+empleados: Juan Pérez, Gerente, 7500000; Ana Gómez, Desarrollador, 6000000; Luis Castro, Proyectos, 10000000.
+Cargo: Gerente, 500000, Asistente, 250000, Desarrollador,400000.
+
+Respuesta:
+1.Creo la base de datos 
+create DATABASE empresa;
+
+Creo las tablas empleados
+USE empresa;
+CREATE TABLE empleados (
+    Id_empl INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    cargo VARCHAR(50),
+    salario DECIMAL(10, 2)
+);
+
+USE empresa;
+CREATE TABLE cargo (
+    id_cargo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_cargo VARCHAR(50) NOT NULL,
+    salario DECIMAL(10, 2)
+);
+
+2. Insertar los 3 registros
+
+USE empresa;
+INSERT INTO empleados (nombre, cargo, salario) VALUES ('Juan Pérez', 'Gerente', 7500000);
+INSERT INTO empleados (nombre, cargo, salario) VALUES ('Ana Gómez', 'Desarrollador', 6000000);
+INSERT INTO empleados (nombre, cargo, salario) VALUES ('Luis Castro', 'Proyectos', 10000000);
+
+USE empresa;
+INSERT INTO cargo (nombre_cargo, salario) VALUES ('Gerente', 500000), ('Asistente', 250000), ('Desarrollador',400000);
+
+3. realizo la consulta de los datos de los empleados: SELECT * FROM empleados;
+
+4. Realizar los comandos para los siguiente: 
+Seleccionar todos los cargos:  USE empresa; SELECT * FROM cargo;
+Seleccionar empleados que ganan más de 7,000,000: USE empresa; SELECT * FROM empleados WHERE salario > 7000000;
+Actualizar el salario de un empleado (por ejemplo, de 'Ana Gómez'): se quiere aumentar el salario de 'Ana Gómez' a 6,500,000:  USE empresa; UPDATE empleados SET salario = 6500000 WHERE nombre = 'Ana Gómez';
+Eliminar un empleado (por ejemplo, 'Luis Castro'): USE empresa; DELETE FROM empleados WHERE nombre = 'Luis Castro';
+Seleccionar empleados con el cargo 'Desarrollador': USE empresa; SELECT * FROM empleados WHERE cargo = 'Desarrollador';
+Insertar un nuevo empleado con un cargo existente: se quiere agregar a 'Marta López' con el cargo de 'Asistente' y un salario de 3,000,000: USE empresa; INSERT INTO empleados (nombre, cargo, salario) VALUES ('Marta López', 'Asistente', 3000000);
+
+Ejercicio de práctica 2.
+1.	Con la base de datos de Biblioteca, deberás realizar comandos de modificación, actualización y eliminación de registros, teniendo en cuanta lo siguiente:
+
+a)	Actualizar la disponibilidad de un libro (marcarlo como no disponible después de un préstamo)
+b)	Actualizar la fecha de devolución de un préstamo.
+c)	Eliminar un libro de la base de datos
+
+Respuesta
+----modificar un registro
+--Actualizar la disponibilidad de un libro (marcarlo como no disponible después de un préstamo):
+USE Biblioteca;
+UPDATE Libros
+SET Disponible = FALSE
+WHERE ID_Libro = 1;
+
+--Actualizar la fecha de devolución de un préstamo:
+USE Biblioteca;
+UPDATE Prestamos
+SET Fecha_Devolucion = '2024-08-20'
+WHERE ID_Prestamo = 1;
+
+--Eliminar un libro de la base de datos:
+USE Biblioteca;
+DELETE FROM Libros
+WHERE Titulo = 'EL libro de 1984';
+
+2.	Deberás realizar comandos de consulta para validar la información, estas consultas son:
+
+a)	Seleccionar todos los libros
+b)	Seleccionar todos los autores
+c)	Seleccionar el libro de Gabriel García Márquez
+d)	Mostrar los libros devueltos en el mes  8  de la tabla prestamos del año 2024, puedes filtrar por el mes en la columna Fecha_Devolucion.
+
+Respuesta:
+
+a)	SELECT * FROM `libros`
+
+b)	SELECT * FROM `autores`
+
+c)	USE Biblioteca; 
+SELECT * FROM Libros 
+WHERE ID_Autor = 1;
+
+d)	USE Biblioteca;
+SELECT * FROM Prestamos
+WHERE MONTH(Fecha_Devolucion) = 8 AND YEAR(Fecha_Devolucion) = 2024;
